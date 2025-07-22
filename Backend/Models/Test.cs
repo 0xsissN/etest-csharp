@@ -8,6 +8,7 @@ namespace Backend.Models
     {
         [Key]
         public int Id { get; set; } 
+        public string Codigo { get; set; }
         public int? Estudiante_ci { get; set; }
         [ForeignKey(nameof(Estudiante_ci))]
         [JsonIgnore]
