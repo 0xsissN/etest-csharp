@@ -17,10 +17,11 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTestCarrera()
+        public async Task<IActionResult> GetIdTestCarrera(int test_id, int carrera_id)
         {
             var test_carrera = await (from tsc in _testContext.TestCarreras
-                                      select tsc).ToListAsync();
+                                      where tsc.Test_id == test_id && tsc.Carrera_id == carrera_id
+                                      select tsc).FirstOrDefaultAsync();
 
             return Ok(test_carrera);
         }

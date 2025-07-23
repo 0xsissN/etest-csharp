@@ -15,6 +15,14 @@ namespace Backend.Controllers
         {
             _testContext = testContext;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetEstudiante()
+        {
+            var estudiantes = await (from est in _testContext.Estudiantes
+                                     select est).ToListAsync();
+
+            return Ok(estudiantes);
+        }
 
         [HttpPost]
         public async Task<IActionResult> PostEstudiante(string ci, string nombre, string apellido_paterno, string apellido_materno, DateOnly fecha_nacimiento)

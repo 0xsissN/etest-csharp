@@ -16,6 +16,15 @@ namespace Backend.Controllers
             _testContext = testContext;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetColegio()
+        {
+            var colegios = await (from col in _testContext.Colegios
+                                  select col).ToListAsync();
+
+            return Ok(colegios);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostColegio(string codigo, string nombre, string direccion)
         {
