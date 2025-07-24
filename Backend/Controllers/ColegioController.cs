@@ -28,10 +28,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostColegio(string codigo, string nombre, string direccion)
+        public async Task<IActionResult> PostColegio(Colegio colegio)
         {
             var comprobando_colegio = await (from col in _testContext.Colegios
-                                             where col.Codigo == codigo
+                                             where col.Codigo == colegio.Codigo
                                              select col).FirstOrDefaultAsync();
 
             if(comprobando_colegio != null)
@@ -41,9 +41,9 @@ namespace Backend.Controllers
 
             var nuevo_colegio = new Colegio()
             {
-                Codigo = codigo,
-                Nombre = nombre,
-                Direccion = direccion
+                Codigo = colegio.Codigo,
+                Nombre = colegio.Nombre,
+                Direccion = colegio.Direccion
             };
 
             await _testContext.Colegios.AddAsync(nuevo_colegio);
