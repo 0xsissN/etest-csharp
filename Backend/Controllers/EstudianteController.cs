@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class EstudianteController : Controller
     {
@@ -17,6 +16,8 @@ namespace Backend.Controllers
         {
             _testContext = testContext;
         }
+
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetEstudiante()
         {

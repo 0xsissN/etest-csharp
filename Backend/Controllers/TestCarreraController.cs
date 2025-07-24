@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class TestCarreraController : Controller
     {
@@ -18,6 +17,7 @@ namespace Backend.Controllers
             _testContext = testContext;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetIdTestCarrera(int test_id, int carrera_id)
         {

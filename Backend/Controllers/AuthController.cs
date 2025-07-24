@@ -21,10 +21,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(string username, string password, string rol)
+        public async Task<IActionResult> Login([FromBody] Usuario usuario)
         {
             var user = await (from u in _testContext.Usuarios
-                              where u.Username == username && u.Password == _jwtService.EncriptarSHA256(password)
+                              where u.Username == usuario.Username && u.Password == _jwtService.EncriptarSHA256(usuario.Password)
                               select u).FirstOrDefaultAsync();
 
             if(user != null)
