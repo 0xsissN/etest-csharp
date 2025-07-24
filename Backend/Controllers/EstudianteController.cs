@@ -1,11 +1,13 @@
 ﻿using Backend.Data;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class EstudianteController : Controller
     {
@@ -60,7 +62,7 @@ namespace Backend.Controllers
 
             if (existencia_estudiante == null)
             {
-                return BadRequest("Ci del estudiante no registrado");
+                return NotFound("Ci del estudiante no registrado");
             }
 
             existencia_estudiante.Estado = false;
@@ -79,7 +81,7 @@ namespace Backend.Controllers
 
             if (existencia_estudiante == null)
             {
-                return BadRequest("Ci del estudiante no registrado");
+                return NotFound("Ci del estudiante no registrado");
             }
 
             existencia_estudiante.Nombre = nombre;

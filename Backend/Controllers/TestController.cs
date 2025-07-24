@@ -1,5 +1,6 @@
 ﻿using Backend.Data;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class TestController : Controller
     {

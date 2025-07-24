@@ -1,11 +1,13 @@
 ﻿using Backend.Data;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ColegioController : Controller
     {
@@ -59,7 +61,7 @@ namespace Backend.Controllers
 
             if(existencia_colegio == null)
             {
-                return BadRequest("El codigo del colegio no fue registrado");
+                return NotFound("El codigo del colegio no fue registrado");
             }
 
             existencia_colegio.Estado = false;
@@ -78,7 +80,7 @@ namespace Backend.Controllers
 
             if(existencia_colegio == null)
             {
-                return BadRequest("El codigo del colegio no fue registrado");
+                return NotFound("El codigo del colegio no fue registrado");
             }
 
             existencia_colegio.Nombre = nombre; 

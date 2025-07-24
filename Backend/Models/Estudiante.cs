@@ -6,10 +6,10 @@ namespace Backend.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Ci { get; set; }  
-        public string Nombre { get; set; }
-        public string Apellido_Paterno { get; set; }
-        public string Apellido_Materno { get; set; }
+        public string Ci { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
+        public string Apellido_Paterno { get; set; } = string.Empty;
+        public string Apellido_Materno { get; set; } = string.Empty;
         public DateOnly Fecha_Nacimiento { get; set; }
         public bool Estado { get; set; } = true;
     }
