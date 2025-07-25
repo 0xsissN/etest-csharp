@@ -27,6 +27,7 @@ namespace Backend.Controllers
                                       where t.Id == id_test
                                       select new
                                       {
+                                          Id = c.Id,
                                           Carreras = c.Nombre
                                       }).ToListAsync();
 
@@ -55,6 +56,24 @@ namespace Backend.Controllers
             await _testContext.SaveChangesAsync();
 
             return Ok("Test carrera creado con exito");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCTest(int test_id, int carrera_id) 
+        {
+            var test = await (from ts in _testContext.CarreraTests
+                              where ts.Test_id == test_id && ts.Carrera_id == carrera_id
+                              select ts).FirstOrDefaultAsync();
+
+            if (test == null)
+            {
+                return NotFound("Test o carrera no coinciden");
+            }
+
+            _testContext.CarreraTests.Remove(test);
+            await _testContext.SaveChangesAsync();
+
+            return Ok("Eliminacion correcta");
         }
     }
 }

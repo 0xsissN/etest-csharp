@@ -30,6 +30,9 @@ namespace Backend.Controllers
                                {
                                    t.Id,
                                    t.Codigo,
+                                   Ci = e.Ci,
+                                   CodigoColegio = co.Codigo,
+                                   CursoId = cu.Id,
                                    Nombre_Estudiante = e.Nombre + " " + e.Apellido_Paterno,
                                    Colegio = co.Nombre,
                                    Curso = cu.Nombre,
@@ -104,7 +107,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, int usuario_id, bool estado)
+        public async Task<IActionResult> PutTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, bool estado, int usuario_id = 1)
         {
             var existencia_test = await (from ts in _testContext.Tests
                                          where ts.Codigo == codigo
