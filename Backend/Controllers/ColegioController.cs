@@ -28,10 +28,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostColegio(Colegio colegio)
+        public async Task<IActionResult> PostColegio(string codigo, string nombre, string direccion)
         {
             var comprobando_colegio = await (from col in _testContext.Colegios
-                                             where col.Codigo == colegio.Codigo
+                                             where col.Codigo == codigo
                                              select col).FirstOrDefaultAsync();
 
             if(comprobando_colegio != null)
@@ -41,9 +41,9 @@ namespace Backend.Controllers
 
             var nuevo_colegio = new Colegio()
             {
-                Codigo = colegio.Codigo,
-                Nombre = colegio.Nombre,
-                Direccion = colegio.Direccion
+                Codigo = codigo,
+                Nombre = nombre,
+                Direccion = direccion
             };
 
             await _testContext.Colegios.AddAsync(nuevo_colegio);
@@ -72,7 +72,7 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutColegio(string codigo, string nombre, string direccion)
+        public async Task<IActionResult> PutColegio(string codigo, string nombre, string direccion, bool estado)
         {
             var existencia_colegio = await (from col in _testContext.Colegios
                                             where col.Codigo == codigo
@@ -85,6 +85,7 @@ namespace Backend.Controllers
 
             existencia_colegio.Nombre = nombre; 
             existencia_colegio.Direccion = direccion;
+            existencia_colegio.Estado = estado;
 
             await _testContext.SaveChangesAsync();
 

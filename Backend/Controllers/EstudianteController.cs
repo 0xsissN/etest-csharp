@@ -28,10 +28,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostEstudiante(Estudiante estudiante)
+        public async Task<IActionResult> PostEstudiante(string ci, string nombre, string apellido_paterno, string apellido_materno, DateOnly fecha_nacimiento)
         {
             var comprobando_ci = await (from est in _testContext.Estudiantes
-                                        where est.Ci == estudiante.Ci
+                                        where est.Ci == ci
                                         select est).FirstOrDefaultAsync();
 
             if (comprobando_ci != null)
@@ -41,11 +41,11 @@ namespace Backend.Controllers
 
             var nuevo_estudiante = new Estudiante()
             {
-                Ci = estudiante.Ci,
-                Nombre = estudiante.Nombre,
-                Apellido_Paterno = estudiante.Apellido_Paterno,
-                Apellido_Materno = estudiante.Apellido_Materno,
-                Fecha_Nacimiento = estudiante.Fecha_Nacimiento
+                Ci = ci,
+                Nombre = nombre,
+                Apellido_Paterno = apellido_paterno,
+                Apellido_Materno = apellido_materno,
+                Fecha_Nacimiento = fecha_nacimiento
             };
 
             await _testContext.Estudiantes.AddAsync(nuevo_estudiante);
