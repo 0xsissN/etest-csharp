@@ -4,6 +4,7 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(TestContext))]
-    partial class TestContextModelSnapshot : ModelSnapshot
+    [Migration("20250725134911_m20")]
+    partial class m20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,29 +62,6 @@ namespace Backend.Migrations
                     b.HasIndex("Aptitud_id");
 
                     b.ToTable("Carreras");
-                });
-
-            modelBuilder.Entity("Backend.Models.CarreraTest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Carrera_id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Test_id")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Carrera_id");
-
-                    b.HasIndex("Test_id");
-
-                    b.ToTable("CarreraTests");
                 });
 
             modelBuilder.Entity("Backend.Models.Colegio", b =>
@@ -204,6 +184,29 @@ namespace Backend.Migrations
                     b.ToTable("Tests");
                 });
 
+            modelBuilder.Entity("Backend.Models.TestCarrera", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Carrera_id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Test_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Carrera_id");
+
+                    b.HasIndex("Test_id");
+
+                    b.ToTable("TestCarreras");
+                });
+
             modelBuilder.Entity("Backend.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -238,21 +241,6 @@ namespace Backend.Migrations
                     b.Navigation("Aptitud");
                 });
 
-            modelBuilder.Entity("Backend.Models.CarreraTest", b =>
-                {
-                    b.HasOne("Backend.Models.Carrera", "Carrera")
-                        .WithMany()
-                        .HasForeignKey("Carrera_id");
-
-                    b.HasOne("Backend.Models.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("Test_id");
-
-                    b.Navigation("Carrera");
-
-                    b.Navigation("Test");
-                });
-
             modelBuilder.Entity("Backend.Models.Test", b =>
                 {
                     b.HasOne("Backend.Models.Colegio", "Colegio")
@@ -278,6 +266,21 @@ namespace Backend.Migrations
                     b.Navigation("Estudiante");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Backend.Models.TestCarrera", b =>
+                {
+                    b.HasOne("Backend.Models.Carrera", "Carrera")
+                        .WithMany()
+                        .HasForeignKey("Carrera_id");
+
+                    b.HasOne("Backend.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("Test_id");
+
+                    b.Navigation("Carrera");
+
+                    b.Navigation("Test");
                 });
 #pragma warning restore 612, 618
         }

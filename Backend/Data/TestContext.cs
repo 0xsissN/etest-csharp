@@ -12,7 +12,7 @@ namespace Backend.Data
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Estudiante> Estudiantes { get; set; }
         public DbSet<Test> Tests { get; set; }
-        public DbSet<TestCarrera> TestCarreras { get; set; }
+        public DbSet<CarreraTest> CarreraTests { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
     }
 }

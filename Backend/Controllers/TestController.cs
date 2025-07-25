@@ -3,12 +3,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Backend.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class TestController : Controller
     {
@@ -21,14 +21,26 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTest()
         {
-            var tests = await (from ts in _testContext.Tests
-                               select ts).ToListAsync();
+            var tests = await (from t in _testContext.Tests
+                               join e in _testContext.Estudiantes on t.Estudiante_ci equals e.Id
+                               join co in _testContext.Colegios on t.Colegio_id equals co.Id
+                               join cu in _testContext.Cursos on t.Curso_id equals cu.Id
+                               join u in _testContext.Usuarios on t.Usuario_id equals u.Id
+                               select new
+                               {
+                                   t.Id,
+                                   t.Codigo,
+                                   Nombre_Estudiante = e.Nombre + " " + e.Apellido_Paterno,
+                                   Colegio = co.Nombre,
+                                   Curso = cu.Nombre,
+                                   t.Estado
+                               }).ToListAsync();
 
             return Ok(tests);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, int usuario_id) 
+        public async Task<IActionResult> PostTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, int usuario_id = 1) 
         {
             var comprobando_test = await (from ts in _testContext.Tests
                                           where ts.Codigo == codigo

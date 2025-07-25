@@ -4,11 +4,10 @@ using System.Text.Json.Serialization;
 
 namespace Backend.Models
 {
-    public class TestCarrera
+    public class CarreraTest
     {
         [Key]
         public int Id { get; set; }
-        public string Codigo { get; set; } = string.Empty;
         public int? Test_id { get; set; }
         [ForeignKey(nameof(Test_id))]
         [JsonIgnore]

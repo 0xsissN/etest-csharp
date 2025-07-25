@@ -23,5 +23,21 @@ namespace Backend.Controllers
 
             return Ok(aptitudes);
         }
+
+        [HttpGet("Id")]
+        public async Task<IActionResult> GetAptitudByID(int id_test)
+        {
+            var aptitudes = await (from ct in _testContext.CarreraTests
+                                   join t in _testContext.Tests on ct.Test_id equals t.Id
+                                   join c in _testContext.Carreras on ct.Carrera_id equals c.Id
+                                   join a in _testContext.Aptitudes on c.Aptitud_id equals a.Id
+                                   where t.Id == id_test
+                                   select new
+                                   {
+                                       Carreras = a.Nombre
+                                   }).Distinct().ToListAsync();
+
+            return Ok(aptitudes);
+        }
     }
 }
