@@ -13,7 +13,6 @@ namespace Backend.Controllers
     {
         private readonly JwtService _jwtService;
         private readonly TestContext _testContext;
-
         public AuthController(IConfiguration config, TestContext testContext) 
         {
             _jwtService = new JwtService(config["Jwt:Key"]!);

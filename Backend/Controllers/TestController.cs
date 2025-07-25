@@ -98,6 +98,8 @@ namespace Backend.Controllers
 
             existencia_test.Estado = false;
 
+            await _testContext.SaveChangesAsync();
+
             return Ok("Test eliminado con exito");
         }
 
