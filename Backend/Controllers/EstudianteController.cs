@@ -28,10 +28,10 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostEstudiante(string ci, string nombre, string apellido_paterno, string apellido_materno, DateOnly fecha_nacimiento)
+        public async Task<IActionResult> PostEstudiante(Estudiante estudiante)
         {
             var comprobando_ci = await (from est in _testContext.Estudiantes
-                                        where est.Ci == ci
+                                        where est.Ci == estudiante.Ci
                                         select est).FirstOrDefaultAsync();
 
             if (comprobando_ci != null)
@@ -41,11 +41,11 @@ namespace Backend.Controllers
 
             var nuevo_estudiante = new Estudiante()
             {
-                Ci = ci,
-                Nombre = nombre,
-                Apellido_Paterno = apellido_paterno,
-                Apellido_Materno = apellido_materno,
-                Fecha_Nacimiento = fecha_nacimiento
+                Ci = estudiante.Ci,
+                Nombre = estudiante.Nombre,
+                ApellidoPaterno = estudiante.ApellidoPaterno,
+                ApellidoMaterno = estudiante.ApellidoMaterno,
+                FechaNacimiento = estudiante.FechaNacimiento
             };
 
             await _testContext.Estudiantes.AddAsync(nuevo_estudiante);
@@ -74,10 +74,10 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutEstudiante(string ci, string nombre, string apellido_paterno, string apellido_materno, DateOnly fecha_nacimiento, bool estado)
+        public async Task<IActionResult> PutEstudiante(Estudiante estudiante)
         {
             var existencia_estudiante = await (from est in _testContext.Estudiantes
-                                               where est.Ci == ci
+                                               where est.Ci == estudiante.Ci
                                                select est).FirstOrDefaultAsync();
 
             if (existencia_estudiante == null)
@@ -85,11 +85,11 @@ namespace Backend.Controllers
                 return NotFound("Ci del estudiante no registrado");
             }
 
-            existencia_estudiante.Nombre = nombre;
-            existencia_estudiante.Apellido_Paterno = apellido_paterno;
-            existencia_estudiante.Apellido_Materno = apellido_materno;
-            existencia_estudiante.Fecha_Nacimiento = fecha_nacimiento;
-            existencia_estudiante.Estado = estado;
+            existencia_estudiante.Nombre = estudiante.Nombre;
+            existencia_estudiante.ApellidoPaterno = estudiante.ApellidoPaterno;
+            existencia_estudiante.ApellidoMaterno = estudiante.ApellidoMaterno;
+            existencia_estudiante.FechaNacimiento = estudiante.FechaNacimiento;
+            existencia_estudiante.Estado = estudiante.Estado;
 
             await _testContext.SaveChangesAsync();
 

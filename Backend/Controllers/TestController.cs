@@ -33,7 +33,7 @@ namespace Backend.Controllers
                                    Ci = e.Ci,
                                    CodigoColegio = co.Codigo,
                                    CursoId = cu.Id,
-                                   Nombre_Estudiante = e.Nombre + " " + e.Apellido_Paterno,
+                                   Nombre_Estudiante = e.Nombre + " " + e.ApellidoPaterno,
                                    Colegio = co.Nombre,
                                    Curso = cu.Nombre,
                                    t.Estado
