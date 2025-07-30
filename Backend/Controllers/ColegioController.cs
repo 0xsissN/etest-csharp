@@ -17,7 +17,6 @@ namespace Backend.Controllers
             _testContext = testContext;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetColegio()
         {
@@ -27,6 +26,7 @@ namespace Backend.Controllers
             return Ok(colegios);
         }
 
+        [Authorize (Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostColegio(Colegio colegio)
         {
@@ -52,6 +52,7 @@ namespace Backend.Controllers
             return Ok("Colegio creado con exito");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteColegio(string codigo)
         {
@@ -71,6 +72,7 @@ namespace Backend.Controllers
             return Ok("Colegio eliminado con exito");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> PutColegio(Colegio colegio)
         {

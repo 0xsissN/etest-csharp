@@ -17,7 +17,6 @@ namespace Backend.Controllers
             _testContext = testContext;
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCarrera(int id_test)
         {
@@ -34,6 +33,7 @@ namespace Backend.Controllers
             return Ok(carreras);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostTestCarrera(string test_codigo, int carrera_id)
         {
@@ -58,6 +58,7 @@ namespace Backend.Controllers
             return Ok("Test carrera creado con exito");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCTest(int test_id, int carrera_id) 
         {

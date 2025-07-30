@@ -30,10 +30,10 @@ namespace Backend.Controllers
                                {
                                    t.Id,
                                    t.Codigo,
-                                   Ci = e.Ci,
-                                   CodigoColegio = co.Codigo,
+                                   estudianteCI = e.Ci,
+                                   colegioCodigo = co.Codigo,
                                    CursoId = cu.Id,
-                                   Nombre_Estudiante = e.Nombre + " " + e.ApellidoPaterno,
+                                   NombreEstudiante = e.Nombre + " " + e.ApellidoPaterno,
                                    Colegio = co.Nombre,
                                    Curso = cu.Nombre,
                                    t.Estado
@@ -42,6 +42,7 @@ namespace Backend.Controllers
             return Ok(tests);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> PostTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, int usuario_id = 1) 
         {
@@ -87,6 +88,7 @@ namespace Backend.Controllers
             return Ok("Test creado con exito");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteTest(string codigo) 
         {
@@ -106,6 +108,7 @@ namespace Backend.Controllers
             return Ok("Test eliminado con exito");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> PutTest(string codigo, string estudiante_ci, string colegio_codigo, int curso_id, bool estado, int usuario_id = 1)
         {

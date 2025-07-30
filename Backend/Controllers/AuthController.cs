@@ -36,12 +36,13 @@ namespace Backend.Controllers
         }
 
         [HttpPost("Registrarse")]
-        public async Task<IActionResult> Registrarse(string username, string password) 
+        public async Task<IActionResult> Registrarse(string username, string password, string rol) 
         {
             var usuario = new Usuario()
             {
                 Username = username,
-                Password = _jwtService.EncriptarSHA256(password)
+                Password = _jwtService.EncriptarSHA256(password),
+                Rol = rol
             };
 
             await _testContext.Usuarios.AddAsync(usuario);
