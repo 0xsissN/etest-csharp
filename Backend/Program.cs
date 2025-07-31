@@ -13,12 +13,22 @@ builder.Services.AddDbContext<TestContext>(
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ReactApp", policy =>
-    {
-        policy.WithOrigins("http://localhost:5173")
-        .AllowAnyHeader()
-        .AllowAnyMethod();
-    });
+    options.AddPolicy("ReactApp",
+        builder => builder
+            .WithOrigins(
+               "http://localhost:5173",
+               "http://127.0.0.1:5173",
+               "http://localhost:5174",
+               "http://127.0.0.1:5174",
+               "http://192.168.0.12:5174",
+               "http://192.168.0.12:5173",
+               "http://localhost:4173",
+               "http://127.0.0.1:4173",
+               "https://tarija.upds.edu.bo"
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
@@ -41,7 +51,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+var app = builder.Build();  
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
